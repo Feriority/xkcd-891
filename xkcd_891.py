@@ -28,8 +28,11 @@ def get_movie_for_year(year):
     url = 'http://www.imdb.com/year/%d' % year
     soup = BeautifulSoup(request.urlopen(url))
     results = soup.find('table', 'results')
-    top_hit = results.find('td', 'title').find('a')
-    return top_hit.text
+    for movie in results.find_all('td', 'title'):
+        if movie.find('span', 'titlePageSprite')['title'] in ('G', 'PG'):
+            return movie.find('a').text
+    # If we found no movies rated G or PG, just return the #1 movie
+    return results.find('td', 'title').find('a').text
 
 
 def feel_old(age):
