@@ -3,7 +3,7 @@ xkcd-891
 
 xkcd 891: Movie Ages, pulled dynamically from IMDB to stay up to date.
 
-Requires beautiful-soup-4.
+Works in python 2.7 or 3, but either way requires Beautiful Soup 4.
 
 To run, just call the script with the age you want, ie `python xkcd_891.py 25`.
 It will find a movie to make you feel old, if your age is between 16 and 35.
