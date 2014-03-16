@@ -1,7 +1,13 @@
 import sys
-import urllib.request
 from bs4 import BeautifulSoup
 from datetime import date
+
+
+# Python 2 support means shenanigans
+try:
+    from urllib import request
+except ImportError:
+    import urllib2 as request
 
 
 MOON_LANDING = date(1969, 7, 20)
@@ -20,7 +26,7 @@ age_to_offset_and_msg = {
 
 def get_movie_for_year(year):
     url = 'http://www.imdb.com/year/%d' % year
-    soup = BeautifulSoup(urllib.request.urlopen(url))
+    soup = BeautifulSoup(request.urlopen(url))
     results = soup.find('table', 'results')
     top_hit = results.find('td', 'title').find('a')
     return top_hit.text
@@ -50,13 +56,13 @@ def feel_old(age):
             message = "not last decade, but the decade before that"
             offset = current_year % 10 + 11
         elif 30 <= age <= 32:
-            message = "more than twenty years ago?"
+            message = "more than twenty years ago"
             offset = 21
         elif 33 <= age <= 35:
             message = "closer to the moon landing than the present day"
             time_since_moon_landing = date.today() - MOON_LANDING
             halfway_point = time_since_moon_landing / 2
-            offset = halfway_point.days / 365 + 1
+            offset = halfway_point.days // 365 + 1
 
     movie_year = current_year - offset
 
@@ -65,7 +71,6 @@ def feel_old(age):
         print("Did you realize that %s came out %s?" % (title, message))
     except:
         print("Unable to load movies from IMDB.")
-        raise
 
 
 if __name__ == '__main__':
