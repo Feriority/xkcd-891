@@ -47,25 +47,24 @@ def feel_old(age):
 
     if age in age_to_offset_and_msg:
         offset, message = age_to_offset_and_msg[age]
-    else:
-        if 17 <= age <= 19:
-            message = "more than half a decade ago"
-            offset = 6
-        elif 21 <= age <= 22:
-            message = "ten years ago"
-            offset = 10
-        elif 23 <= age <= 25:
-            # This doesn't work so well late in a decade
-            message = "not last decade, but the decade before that"
-            offset = current_year % 10 + 11
-        elif 30 <= age <= 32:
-            message = "more than twenty years ago"
-            offset = 21
-        elif 33 <= age <= 35:
-            message = "closer to the moon landing than the present day"
-            time_since_moon_landing = date.today() - MOON_LANDING
-            halfway_point = time_since_moon_landing / 2
-            offset = halfway_point.days // 365 + 1
+    elif 17 <= age <= 19:
+        message = "more than half a decade ago"
+        offset = 6
+    elif 21 <= age <= 22:
+        message = "ten years ago"
+        offset = 10
+    elif 23 <= age <= 25:
+        # This doesn't work so well late in a decade
+        message = "not last decade, but the decade before that"
+        offset = current_year % 10 + 11
+    elif 30 <= age <= 32:
+        message = "more than twenty years ago"
+        offset = 21
+    elif 33 <= age <= 35:
+        message = "closer to the moon landing than the present day"
+        time_since_moon_landing = date.today() - MOON_LANDING
+        halfway_point = time_since_moon_landing / 2
+        offset = halfway_point.days // 365 + 1
 
     movie_year = current_year - offset
 
